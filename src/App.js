@@ -1,3 +1,5 @@
+import "./categories.styles.scss"
+
 const App = function () {
     const categories = [
         {
@@ -25,7 +27,7 @@ const App = function () {
         <div className="categories">
             {categories.map(category => (
                 <div className="category">
-                    <div className="category__background" />
+                    <div className="category__background"/>
                     <div className="category__body">
                         <h2>{category.title}</h2>
                         <p>Shop Now</p>
@@ -35,6 +37,5 @@ const App = function () {
         </div>
     );
 }
-
 
 export default App;
