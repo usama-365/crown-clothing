@@ -1,17 +1,6 @@
 import {Home} from "./routes/home/home.component";
-import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
-
-const Navigation = function () {
-    return (
-        <div>
-            <div>
-                <h1>This is the navigation bar</h1>
-            </div>
-            {/* Render the nested routes */}
-            <Outlet/>
-        </div>
-    );
-}
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {Navigation} from "./routes/navigation/navigation.component";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +13,7 @@ const router = createBrowserRouter([
                 element: <Home/>
             },
             {
-                path: 'shop',
+                path: "shop",
                 element: <p>This is shop</p>
             }
         ]
