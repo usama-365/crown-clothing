@@ -13,6 +13,9 @@ export const Navigation = function () {
                     <li className="navigation__item">
                         <Link className="navigation__link" to="/shop">Shop</Link>
                     </li>
+                    <li className="navigation__item">
+                        <Link className="navigation__link" to="/signin">Sign In</Link>
+                    </li>
                 </ul>
             </nav>
             {/* Render the nested routes */}
