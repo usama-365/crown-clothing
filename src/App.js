@@ -5,6 +5,7 @@ import {SignIn} from "./routes/sign-in/sign-in.route";
 import {UserContextProvider} from "./contexts/user.context";
 import {Shop} from "./routes/shop/shop.route";
 import {ProductsContextProvider} from "./contexts/products.context";
+import {CartContextProvider} from "./contexts/cart.context";
 
 const router = createBrowserRouter([
     {
@@ -32,7 +33,9 @@ const App = function () {
     return (
         <UserContextProvider>
             <ProductsContextProvider>
-                <RouterProvider router={router}/>
+                <CartContextProvider>
+                    <RouterProvider router={router}/>
+                </CartContextProvider>
             </ProductsContextProvider>
         </UserContextProvider>
     );
