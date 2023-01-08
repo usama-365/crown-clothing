@@ -4,6 +4,8 @@ import "./navigation.styles.scss";
 import {useContext} from "react";
 import {UserContext} from "../../contexts/user.context";
 import {signOutUser} from '../../services/firebase/firebase.service';
+import {CartIcon} from "../../components/cart-icon/cart-icon.component";
+import {CartDropdown} from "../../components/cart-dropdown/cart-dropdown.component";
 
 export const Navigation = function () {
     const {currentUser} = useContext(UserContext);
@@ -29,8 +31,11 @@ export const Navigation = function () {
                             </li>
                         )
                     }
-
+                    <li className="navigation__item">
+                        <Link className="navigation__link" to="/shop"><CartIcon/></Link>
+                    </li>
                 </ul>
+                <CartDropdown/>
             </nav>
             {/* Render the nested routes */}
             <Outlet/>
