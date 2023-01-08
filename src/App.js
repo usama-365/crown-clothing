@@ -2,6 +2,7 @@ import {Home} from "./routes/home/home.route";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Navigation} from "./routes/navigation/navigation.route";
 import {SignIn} from "./routes/sign-in/sign-in.route";
+import {UserContextProvider} from "./contexts/user.context";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,9 @@ const router = createBrowserRouter([
 
 const App = function () {
     return (
-        <RouterProvider router={router}/>
+        <UserContextProvider>
+            <RouterProvider router={router}/>
+        </UserContextProvider>
     );
 }
 
