@@ -1,4 +1,5 @@
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
+import {onAuthStateChangedListener} from "../services/firebase/firebase.service";
 
 export const UserContext = createContext({
     currentUser: null,
@@ -11,6 +12,13 @@ export const UserContextProvider = function ({children}) {
         currentUser,
         setCurrentUser
     };
+
+    useEffect(() => {
+        return onAuthStateChangedListener((user) => {
+            setCurrentUser(user);
+        });
+    }, []);
+
     return (
         <UserContext.Provider value={value}>
             {children}

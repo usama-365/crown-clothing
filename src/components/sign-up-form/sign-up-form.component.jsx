@@ -1,9 +1,8 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {FormInput} from "../form-input/form-input.component";
 import "./sign-up-form.styles.scss";
 import {Button} from "../button/button.component";
 import {signUpEmailPassword} from "../../services/firebase/firebase.service";
-import {UserContext} from "../../contexts/user.context";
 
 const defaultFormFields = {
     displayName: "",
@@ -15,7 +14,6 @@ const defaultFormFields = {
 export const SignUpForm = function () {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {displayName, email, password, confirmPassword} = formFields;
-    const {setCurrentUser} = useContext(UserContext);
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
@@ -32,9 +30,8 @@ export const SignUpForm = function () {
             alert("Passwords do not match");
             return;
         }
-        const user = await signUpEmailPassword(displayName, email, password);
+        await signUpEmailPassword(displayName, email, password);
         resetFormFields();
-        setCurrentUser(user);
     }
 
     return (
@@ -78,7 +75,7 @@ export const SignUpForm = function () {
                         type: "password"
                     }}
                 />
-                <Button buttonAttributes={{type: 'submit'}}>Sign Up</Button>
+                <Button buttonAttributes={{type: "submit"}}>Sign Up</Button>
             </form>
         </div>
     );
