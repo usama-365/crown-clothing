@@ -1,7 +1,8 @@
 import {useState} from "react";
 import {FormInput} from "../form-input/form-input.component";
 import {Button} from "../button/button.component";
-import './sign-in-form.styles.scss';
+import "./sign-in-form.styles.scss";
+import {signInEmailPassword, signInGoogle} from "../../services/firebase/firebase.service";
 
 const defaultFormFields = {
     email: "",
@@ -12,22 +13,34 @@ export const SignInForm = function () {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {email, password} = formFields;
     const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const {name, value} = event.target;
         setFormFields({...formFields, [name]: value});
+    };
+
+    const resetFormFields = () => setFormFields(defaultFormFields);
+
+    const handleSubmit = async function (event) {
+        event.preventDefault();
+        console.log(await signInEmailPassword(email, password));
+        resetFormFields();
+    };
+
+    const handleGoogleSignIn = async function () {
+        console.log(await signInGoogle());
     };
 
     return (
         <div className="form">
             <h2>Already have an account?</h2>
             <span>Sign in with your email and password</span>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <FormInput
                     label="Email"
                     inputAttributes={{
                         value: email,
                         type: "email",
                         name: "email",
+                        required: true,
                         onChange: handleChange
                     }}
                 />
@@ -37,15 +50,24 @@ export const SignInForm = function () {
                         value: password,
                         type: "password",
                         name: "password",
+                        required: true,
                         onChange: handleChange
                     }}
                 />
                 <div className="btns">
-                    <Button >Sign In</Button>
-                    <Button buttonType="google">Google Sign In</Button>
+                    <Button
+                        buttonAttributes={{
+                            type: "submit"
+                        }}
+                    >Sign In</Button>
+                    <Button
+                        buttonType="google"
+                        buttonAttributes={{
+                            onClick: handleGoogleSignIn
+                        }}
+                    >Google Sign In</Button>
                 </div>
             </form>
         </div>
-
-    )
-}
+    );
+};
