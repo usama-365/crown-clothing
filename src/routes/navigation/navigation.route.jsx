@@ -3,14 +3,14 @@ import {ReactComponent as CrownLogo} from "../../assets/crown.svg";
 import "./navigation.styles.scss";
 import {useContext} from "react";
 import {UserContext} from "../../contexts/user.context";
-import {signOutUser} from '../../services/firebase/firebase.service';
+import {signOutUser} from "../../services/firebase/firebase.service";
 import {CartIcon} from "../../components/cart-icon/cart-icon.component";
 import {CartDropdown} from "../../components/cart-dropdown/cart-dropdown.component";
 import {CartContext} from "../../contexts/cart.context";
 
 export const Navigation = function () {
     const {currentUser} = useContext(UserContext);
-    const {isCartOpen, setIsCartOpen} = useContext(CartContext);
+    const {isCartOpen} = useContext(CartContext);
     return (
         <>
             <nav className="navigation">
@@ -24,7 +24,7 @@ export const Navigation = function () {
                     {
                         currentUser ? (
                             <li className="navigation__item">
-                                <Link className="navigation__link" onClick={signOutUser} to='/signin'>Sign Out</Link>
+                                <span className="navigation__link" onClick={signOutUser}>Sign Out</span>
                             </li>
                         ) : (
                             <li className="navigation__item">
@@ -33,7 +33,7 @@ export const Navigation = function () {
                         )
                     }
                     <li className="navigation__item">
-                        <Link onClick={() => setIsCartOpen(!isCartOpen)} className="navigation__link" to="/shop"><CartIcon /></Link>
+                        <span className="navigation__link"><CartIcon/></span>
                     </li>
                 </ul>
                 {isCartOpen && <CartDropdown/>}
