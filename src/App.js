@@ -4,7 +4,7 @@ import {Navigation} from "./routes/navigation/navigation.route";
 import {SignIn} from "./routes/sign-in/sign-in.route";
 import {UserContextProvider} from "./contexts/user.context";
 import {Shop} from "./routes/shop/shop.route";
-import {ProductsContextProvider} from "./contexts/products.context";
+import {CategoriesContextProvider} from "./contexts/categories.context";
 import {CartContextProvider} from "./contexts/cart.context";
 import {Checkout} from "./routes/checkout/checkout.route";
 
@@ -37,11 +37,11 @@ const router = createBrowserRouter([
 const App = function () {
     return (
         <UserContextProvider>
-            <ProductsContextProvider>
+            <CategoriesContextProvider>
                 <CartContextProvider>
                     <RouterProvider router={router}/>
                 </CartContextProvider>
-            </ProductsContextProvider>
+            </CategoriesContextProvider>
         </UserContextProvider>
     );
 }

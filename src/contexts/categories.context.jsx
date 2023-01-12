@@ -2,12 +2,12 @@ import {SHOP_DATA} from '../shop-data.js';
 import {addCollectionAndDocuments, getCategoriesAndDocuments} from "../services/firebase/firebase.service";
 import {createContext, useEffect, useState} from "react";
 
-export const ProductsContext = createContext({
-    products: [],
+export const CategoriesContext = createContext({
+    categories: {},
 });
 
-export const ProductsContextProvider = function ({children}) {
-    const [products, setProducts] = useState([]);
+export const CategoriesContextProvider = function ({children}) {
+    const [categories, setCategories] = useState({});
     /*
     // Code snippet to synchronize the shop-data.js file with firestore
     useEffect(() => {
@@ -16,13 +16,13 @@ export const ProductsContextProvider = function ({children}) {
     */
 
     useEffect(() => {
-        getCategoriesAndDocuments().then(console.log);
+        getCategoriesAndDocuments().then(setCategories);
     }, []);
 
-    const value = { products };
+    const value = { categories };
     return (
-        <ProductsContext.Provider value={value}>
+        <CategoriesContext.Provider value={value}>
             {children}
-        </ProductsContext.Provider>
+        </CategoriesContext.Provider>
     );
 };
