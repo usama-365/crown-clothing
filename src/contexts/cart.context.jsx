@@ -1,14 +1,23 @@
 import {createContext, useEffect, useState} from "react";
 
-const createUpdatedCart = function (cart, productToAdd) {
+const createUpdatedCartByAdding = function (cart, productToAdd) {
     const matchedItem = cart.find(cartItem => cartItem.id === productToAdd.id);
     if (matchedItem)
-        return cart.map(item => (item.id === productToAdd.id) ?
-            {...item, quantity: item.quantity + 1} :
-            item
+        return cart.map(item => (item.id === productToAdd.id) ? {...item, quantity: item.quantity + 1} : item
         );
     else
         return [...cart, {...productToAdd, quantity: 1}];
+};
+
+const createUpdatedCartByRemoving = function (cart, productToRemove) {
+    const matchedItem = cart.find(cartItem => cartItem.id === productToRemove.id);
+    if (matchedItem) {
+        if (matchedItem.quantity > 1)
+            return cart.map(item => (item.id === productToRemove.id) ? {...item, quantity: item.quantity - 1} : item);
+        else
+            return cart.filter(item => item.id !== productToRemove.id);
+    } else
+        return cart;
 };
 
 export const CartContext = createContext({
@@ -17,6 +26,8 @@ export const CartContext = createContext({
     },
     cartItems: [],
     addProductToCart: () => {
+    },
+    removeProductFromCart: () => {
     },
     cartCount: 0
 });
@@ -32,10 +43,14 @@ export const CartContextProvider = function ({children}) {
     }, [cartItems]);
 
     const addProductToCart = (product) => {
-        setCartItems(createUpdatedCart(cartItems, product));
+        setCartItems(createUpdatedCartByAdding(cartItems, product));
     }
 
-    const value = {isCartOpen, setIsCartOpen, addProductToCart, cartItems, cartCount};
+    const removeProductFromCart = (product) => {
+        setCartItems(createUpdatedCartByRemoving(cartItems, product));
+    }
+
+    const value = {isCartOpen, setIsCartOpen, addProductToCart, removeProductFromCart, cartItems, cartCount};
     return (
         <CartContext.Provider value={value}>
             {children}

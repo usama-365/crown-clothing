@@ -6,6 +6,7 @@ import {UserContextProvider} from "./contexts/user.context";
 import {Shop} from "./routes/shop/shop.route";
 import {ProductsContextProvider} from "./contexts/products.context";
 import {CartContextProvider} from "./contexts/cart.context";
+import {Checkout} from "./routes/checkout/checkout.route";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                 path: "signin",
                 element: <SignIn/>
+            },
+            {
+                path: "checkout",
+                element: <Checkout/>
             }
         ]
     }
