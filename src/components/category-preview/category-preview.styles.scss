@@ -9,6 +9,11 @@
     cursor: pointer;
   }
 
+  &__text {
+    text-decoration: none;
+    color: inherit;
+  }
+
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

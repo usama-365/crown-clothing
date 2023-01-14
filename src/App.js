@@ -7,6 +7,7 @@ import {Shop} from "./routes/shop/shop.route";
 import {CategoriesContextProvider} from "./contexts/categories.context";
 import {CartContextProvider} from "./contexts/cart.context";
 import {Checkout} from "./routes/checkout/checkout.route";
+import {CategoryItems} from "./components/category-items/category-items.component";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
                     {
                         element: <Shop/>,
                         index: true
+                    },
+                    {
+                        path: ':category',
+                        element: <CategoryItems/>
                     }
                 ]
             },
