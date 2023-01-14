@@ -12,7 +12,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Navigation/>,
-        errorElement: <p>Route doesn't exist</p>,
+        errorElement: <p>Invalid URL</p>,
         children: [
             {
                 index: true,
@@ -20,7 +20,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "shop",
-                element: <Shop/>
+                children: [
+                    {
+                        element: <Shop/>,
+                        index: true
+                    }
+                ]
             },
             {
                 path: "signin",
