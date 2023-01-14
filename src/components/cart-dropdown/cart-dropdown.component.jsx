@@ -14,9 +14,9 @@ export const CartDropdown = function () {
     return (
         <div className="cart-dropdown">
             <div className="cart-dropdown__items">
-                {cartItems.map(item => (
+                {cartItems?.length ? cartItems.map(item => (
                     <CartItem key={item.id} cartItem={item}/>
-                ))}
+                )) : <span style={{margin: "auto"}}>Nothing in cart</span>}
             </div>
             <Button buttonAttributes={{onClick: goToCheckoutHandler}}>Checkout</Button>
         </div>
