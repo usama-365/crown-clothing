@@ -8,6 +8,10 @@ import {CategoriesContextProvider} from "./contexts/categories.context";
 import {CartContextProvider} from "./contexts/cart.context";
 import {Checkout} from "./routes/checkout/checkout.route";
 import {CategoryItems} from "./components/category-items/category-items.component";
+import {useEffect} from "react";
+import {onAuthStateChangedListener} from "./services/firebase/firebase.service";
+import {setCurrentUser} from "./store/user/user.action";
+import {useDispatch} from "react-redux";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +31,7 @@ const router = createBrowserRouter([
                         index: true
                     },
                     {
-                        path: ':category',
+                        path: ":category",
                         element: <CategoryItems/>
                     }
                 ]
@@ -45,14 +49,21 @@ const router = createBrowserRouter([
 ]);
 
 const App = function () {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        return onAuthStateChangedListener((user) => {
+            dispatch(setCurrentUser(user));
+        });
+    }, [dispatch]);
     return (
-        <UserContextProvider>
+        // <UserContextProvider>
             <CategoriesContextProvider>
                 <CartContextProvider>
                     <RouterProvider router={router}/>
                 </CartContextProvider>
             </CategoriesContextProvider>
-        </UserContextProvider>
+        // </UserContextProvider>
     );
 }
 
