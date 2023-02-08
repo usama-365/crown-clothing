@@ -3,7 +3,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Navigation} from "./routes/navigation/navigation.route";
 import {SignIn} from "./routes/sign-in/sign-in.route";
 import {Shop} from "./routes/shop/shop.route";
-import {CartContextProvider} from "./contexts/cart.context";
 import {Checkout} from "./routes/checkout/checkout.route";
 import {CategoryItems} from "./components/category-items/category-items.component";
 import {useEffect} from "react";
@@ -54,9 +53,7 @@ const App = function () {
         });
     }, [dispatch]);
     return (
-            <CartContextProvider>
-                <RouterProvider router={router}/>
-            </CartContextProvider>
+        <RouterProvider router={router}/>
     );
 }
 
