@@ -60,11 +60,12 @@ export const getCategoriesAndDocuments = async function () {
     const collectionRef = collection(db, 'categories');
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.reduce((acc, docSnapshot) => {
-        const {title, items} = docSnapshot.data();
-        acc[title.toLowerCase()] = items;
-        return acc;
-    }, {});
+    return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
+    // .reduce((acc, docSnapshot) => {
+    //     const {title, items} = docSnapshot.data();
+    //     acc[title.toLowerCase()] = items;
+    //     return acc;
+    // }, {});
 };
 
 export const signInGoogle = async function () {
