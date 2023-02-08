@@ -1,5 +1,5 @@
 import {createContext, useReducer} from "react";
-import {createAction} from "../reducer/reducer";
+import {createAction} from "../store/utils";
 
 const createUpdateCartByIncrementingProduct = function (cart, productToIncrement) {
     const matchedItem = cart.find(cartItem => cartItem.id === productToIncrement.id);

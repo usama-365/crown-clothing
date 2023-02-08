@@ -1,12 +1,11 @@
 import "./category-items.styles.scss";
 import {useParams} from "react-router-dom";
-import {useContext} from "react";
-import {CategoriesContext} from "../../contexts/categories.context";
 import {ProductCard} from "../product-card/product-card.component";
+import {useSelector} from "react-redux";
 
 export const CategoryItems = function () {
     const {category} = useParams();
-    const {categories} = useContext(CategoriesContext);
+    const categories = useSelector(state => state.categories.categoriesMap);
     return (
         <>
             <h2 className="category-items__title">{category}</h2>

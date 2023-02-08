@@ -3,7 +3,6 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Navigation} from "./routes/navigation/navigation.route";
 import {SignIn} from "./routes/sign-in/sign-in.route";
 import {Shop} from "./routes/shop/shop.route";
-import {CategoriesContextProvider} from "./contexts/categories.context";
 import {CartContextProvider} from "./contexts/cart.context";
 import {Checkout} from "./routes/checkout/checkout.route";
 import {CategoryItems} from "./components/category-items/category-items.component";
@@ -48,7 +47,6 @@ const router = createBrowserRouter([
 ]);
 
 const App = function () {
-
     const dispatch = useDispatch();
     useEffect(() => {
         return onAuthStateChangedListener((user) => {
@@ -56,11 +54,9 @@ const App = function () {
         });
     }, [dispatch]);
     return (
-        <CategoriesContextProvider>
             <CartContextProvider>
                 <RouterProvider router={router}/>
             </CartContextProvider>
-        </CategoriesContextProvider>
     );
 }
 

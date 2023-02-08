@@ -1,8 +1,17 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {rootReducer} from "./root-reducer";
+import {userReducer} from "./user/user.reducer";
+import {categoriesReducer} from "./categories/categories.reducer";
 import logger from "redux-logger";
 
 export const store = configureStore({
-    reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
+    reducer: {
+        // automatically calls combineReducer
+        user: userReducer,
+        categories: categoriesReducer
+    },
+    middleware: getDefaultMiddleware => getDefaultMiddleware({
+        serializableCheck: false,
+        immutableCheck: false,
+        thunk: false
+    }).concat(logger)
 });
