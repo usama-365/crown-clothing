@@ -19,13 +19,13 @@ export const store = configureStore({
             getDefaultMiddleware({
                 serializableCheck: false,
                 immutableCheck: false,
-                thunk: false
+                thunk: true
             }).concat(logger)
             :
             getDefaultMiddleware({
                 serializableCheck: false,
                 immutableCheck: false,
-                thunk: false
+                thunk: true
             })
     )
 });
