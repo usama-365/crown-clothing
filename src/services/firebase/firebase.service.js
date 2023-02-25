@@ -32,7 +32,7 @@ googleAuthProvider.setCustomParameters({
     prompt: "select_account"
 });
 
-const getOrCreateUserDocument = async function (user, additionalInformation = {}) {
+export const getOrCreateUserDocument = async function (user, additionalInformation = {}) {
     if (!user) return;
     const userDocRef = doc(db, "users", user.uid)
     const userSnapshot = await getDoc(userDocRef);

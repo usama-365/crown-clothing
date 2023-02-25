@@ -7,7 +7,7 @@ import {Checkout} from "./routes/checkout/checkout.route";
 import {CategoryItems} from "./components/category-items/category-items.component";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {getCurrentUser} from "./services/firebase/firebase.service";
+import {checkUserSession} from "./store/user/user.action";
 
 const router = createBrowserRouter([
     {
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
 const App = function () {
     const dispatch = useDispatch();
     useEffect(() => {
-        getCurrentUser().then(console.log)
+        dispatch(checkUserSession());
     }, [dispatch]);
     return (
         <RouterProvider router={router}/>
