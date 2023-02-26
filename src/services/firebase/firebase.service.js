@@ -43,7 +43,7 @@ export const getOrCreateUserDocument = async function (user, additionalInformati
         await setDoc(userDocRef, {displayName, email, createdAt, ...additionalInformation});
     }
     // Return the user doc reference
-    return userDocRef;
+    return userSnapshot;
 }
 
 export const addCollectionAndDocuments = async function (collectionKey, objectsToAdd) {
