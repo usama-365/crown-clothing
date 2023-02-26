@@ -4,9 +4,10 @@ import {
     getCurrentUser,
     getOrCreateUserDocument,
     signInEmailPassword,
-    signInGoogle
+    signInGoogle,
+    signUpEmailPassword
 } from "../../services/firebase/firebase.service";
-import {signInFailed, signInSuccess} from "./user.action";
+import {signInFailed, signInSuccess, signUpFailed, signUpSuccess} from "./user.action";
 
 export const saveUserAndPerformSignIn = function* (userAuth, additionalInformation) {
     try {
@@ -57,6 +58,33 @@ export const onEmailSignInStart = function* () {
     yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, signInWithEmail);
 }
 
+export const signUp = function* ({payload: {email, password, displayName}}) {
+    try {
+        const user = yield call(signUpEmailPassword, displayName, email, password);
+        yield put(signUpSuccess(user, {displayName}));
+    } catch (e) {
+        yield put(signUpFailed(e));
+    }
+}
+
+export const onSignUpStart = function* () {
+    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, signUp);
+}
+
+export const signInAfterSignUp = function* ({payload: {user, additionalDetails}}) {
+    yield call(saveUserAndPerformSignIn, user, additionalDetails);
+}
+
+export const onSignUpSuccess = function* () {
+    yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
+}
+
 export const userSagas = function* () {
-    yield all([call(onCheckUserSession), call(onGoogleSignInStart), call(onEmailSignInStart)]);
+    yield all([
+        call(onCheckUserSession),
+        call(onGoogleSignInStart),
+        call(onEmailSignInStart),
+        call(onSignUpStart),
+        call(onSignUpSuccess)
+    ]);
 }
