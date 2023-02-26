@@ -1,16 +1,17 @@
 import {Link, Outlet} from "react-router-dom";
 import {ReactComponent as CrownLogo} from "../../assets/crown.svg";
 import "./navigation.styles.scss";
-import {signOutUser} from "../../services/firebase/firebase.service";
 import {CartIcon} from "../../components/cart-icon/cart-icon.component";
 import {CartDropdown} from "../../components/cart-dropdown/cart-dropdown.component";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectCurrentUser} from "../../store/user/user.selector";
 import {selectIsCartOpen} from "../../store/cart/cart.selectors";
+import {signOutStart} from "../../store/user/user.action";
 
 export const Navigation = function () {
     const currentUser = useSelector(selectCurrentUser);
     const isCartOpen = useSelector(selectIsCartOpen);
+    const dispatch = useDispatch();
     return (
         <>
             <nav className="navigation">
@@ -24,7 +25,8 @@ export const Navigation = function () {
                     {
                         currentUser ? (
                             <li className="navigation__item">
-                                <span className="navigation__link" onClick={signOutUser}>Sign Out</span>
+                                <span className="navigation__link"
+                                      onClick={() => dispatch(signOutStart())}>Sign Out</span>
                             </li>
                         ) : (
                             <li className="navigation__item">

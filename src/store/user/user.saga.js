@@ -5,9 +5,10 @@ import {
     getOrCreateUserDocument,
     signInEmailPassword,
     signInGoogle,
+    signOutUser,
     signUpEmailPassword
 } from "../../services/firebase/firebase.service";
-import {signInFailed, signInSuccess, signUpFailed, signUpSuccess} from "./user.action";
+import {signInFailed, signInSuccess, signOutFailed, signOutSuccess, signUpFailed, signUpSuccess} from "./user.action";
 
 export const saveUserAndPerformSignIn = function* (userAuth, additionalInformation) {
     try {
@@ -79,12 +80,26 @@ export const onSignUpSuccess = function* () {
     yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
+export const signOut = function* () {
+    try {
+        yield call(signOutUser);
+        yield put(signOutSuccess());
+    } catch (e) {
+        yield put(signOutFailed(e));
+    }
+}
+
+export const onSignOutStart = function* () {
+    yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
+}
+
 export const userSagas = function* () {
     yield all([
         call(onCheckUserSession),
         call(onGoogleSignInStart),
         call(onEmailSignInStart),
         call(onSignUpStart),
-        call(onSignUpSuccess)
+        call(onSignUpSuccess),
+        call(onSignOutStart)
     ]);
 }
