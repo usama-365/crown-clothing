@@ -1,8 +1,8 @@
-import './button.styles.scss';
+import "./button.styles.scss";
 
-const BUTTON_TYPES_CLASS = {
-    google: 'btn--google',
-    inverted: 'btn--inverted'
+export const BUTTON_TYPES_CLASS = {
+    google: "btn--google",
+    inverted: "btn--inverted"
 };
 
 export const Button = function ({children, buttonType, buttonAttributes}) {
