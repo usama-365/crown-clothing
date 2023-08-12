@@ -21,5 +21,8 @@ exports.handler = async function (event) {
 		body: JSON.stringify({
 			clientSecret: paymentIntent.client_secret,
 		}),
+		headers: {
+			"Content-Type": "application/json"
+		}
 	};
 };
